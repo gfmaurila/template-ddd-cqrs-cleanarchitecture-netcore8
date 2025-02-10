@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="ardalis.smartenum" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Template.Common.Domain\Template.Common.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

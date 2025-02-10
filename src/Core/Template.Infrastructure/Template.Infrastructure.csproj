@@ -6,4 +6,20 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="microsoft.entityframeworkcore.sqlserver" Version="9.0.1" />
+    <PackageReference Include="microsoft.entityframeworkcore.tools" Version="9.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Template.Application\Template.Application.csproj" />
+    <ProjectReference Include="..\Template.Common.Domain\Template.Common.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
