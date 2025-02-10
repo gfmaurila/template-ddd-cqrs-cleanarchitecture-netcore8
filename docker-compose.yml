@@ -1,0 +1,32 @@
+# docker-compose down
+# docker-compose up -d --build
+# docker-compose up --build
+# Add-Migration Inicial -Context ExempleAppDbContext 
+# Update-Database -Context ExempleAppDbContext
+
+# Add-Migration Inicial -Context PersonAppDbContext 
+# Add-Migration InicialPerson -Context PersonAppDbContext 
+# Update-Database -Context PersonAppDbContext
+
+# Add-Migration Inicial -Context CustomerAppDbContext 
+# Update-Database -Context CustomerAppDbContext
+
+# Criando API nova
+# dotnet new webapi -n AuthSystem
+# dotnet new webapi -n API.Person
+
+version: '3.4'
+
+networks:
+  app-backend:
+    driver: bridge
+  # docker network create shared-network
+  shared-network:
+    external: true
+
+services:
+  api.template:
+    image: ${DOCKER_REGISTRY-}apitemplate
+    build:
+      context: .
+      dockerfile: src/API/API.Template/Dockerfile
