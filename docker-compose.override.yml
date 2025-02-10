@@ -4,11 +4,34 @@ services:
   api.template:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_HTTP_PORTS=80
+      - ASPNETCORE_HTTPS_PORTS=443
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=TemplateDb;User=sa;Password=@Poc2Minimal@Api;Encrypt=true;TrustServerCertificate=true
+      - Kafka__BootstrapServers=kafka1:9092
+      - Kafka__DefaultTopic=integration-events
     ports:
-      - "8080"
-      - "8081"
+      - "8080:80"
+      - "8081:443"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+      - app-backend
+
+  sqlserver:
+    ports:
+      - "1444:1433"
+    networks:
+      - app-backend
+
+  zookeeper:
+    networks:
+      - app-backend
+
+  kafka1:
+    networks:
+      - app-backend
+
+  kafka-ui:
+    networks:
+      - app-backend
