@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Template.Common.Domain\Template.Common.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Services\" />
+  </ItemGroup>
+
 </Project>
