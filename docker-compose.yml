@@ -33,6 +33,8 @@ services:
     depends_on:
       - sqlserver
       - kafka1
+      - redis
+      - mongoserver
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -46,6 +48,33 @@ services:
       - app-backend
     volumes:
       - sql_data:/var/opt/mssql
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass Poc2Minimal@Api
+    restart: always
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
+    networks:
+      - app-backend
+    volumes:
+      - redis_data:/var/opt/redis
+
+  mongoserver:
+    image: mongo:latest
+    container_name: mongoserver
+    restart: always
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    networks:
+      - app-backend  
+    volumes:
+      - mongoserver_data:/var/opt/mongoserver  
 
   zookeeper:
     image: bitnami/zookeeper:3.8
@@ -100,4 +129,8 @@ volumes:
   kafka_data1:
     driver: local
   sql_data:
+    driver: local
+  redis_data:
+    driver: local
+  mongoserver_data:
     driver: local
