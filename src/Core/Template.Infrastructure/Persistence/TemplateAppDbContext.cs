@@ -3,9 +3,9 @@ using System.Reflection;
 using Template.Infrastructure.Persistence.Entities;
 
 namespace Template.Infrastructure.Persistence;
-public class BasketAppDbContext : DbContext
+public class TemplateAppDbContext : DbContext
 {
-    public BasketAppDbContext(DbContextOptions<BasketAppDbContext> options)
+    public TemplateAppDbContext(DbContextOptions<TemplateAppDbContext> options)
         : base(options) { }
 
     public DbSet<UserEntity> User { get; set; }
