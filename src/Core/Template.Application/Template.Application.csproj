@@ -23,4 +23,9 @@
     <ProjectReference Include="..\Template.Domain\Template.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Feature\Users\Queries\GetPagination\" />
+    <Folder Include="Feature\Users\Queries\Get\" />
+  </ItemGroup>
+
 </Project>

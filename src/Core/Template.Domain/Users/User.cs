@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Common.Domain;
+﻿using Template.Common.Domain;
 using Template.Common.Domain.Enumerado;
 using Template.Domain.Users.Events;
 

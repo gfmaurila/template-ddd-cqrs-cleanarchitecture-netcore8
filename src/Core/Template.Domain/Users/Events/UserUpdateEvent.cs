@@ -1,11 +1,4 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Template.Common.Domain;
+﻿using Template.Common.Domain;
 using Template.Common.Domain.Enumerado;
 
 namespace Template.Domain.Users.Events;
@@ -22,7 +15,7 @@ public sealed class UserUpdateEvent : BaseUserDomainEvent
         Email = email;
         Phone = phone;
         AggregateId = Guid.NewGuid();
-        
+
         //MessageType = nameof(ExempleBaseEvent);
     }
 
@@ -51,5 +44,5 @@ public sealed class UserUpdateEvent : BaseUserDomainEvent
     /// </summary>
     public string Phone { get; private init; }
 
-    
+
 }

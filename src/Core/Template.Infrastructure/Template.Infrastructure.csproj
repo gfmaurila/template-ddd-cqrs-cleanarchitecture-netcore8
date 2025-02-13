@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Template.Common.Domain\Template.Common.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Repositories\" />
+  </ItemGroup>
+
 </Project>
