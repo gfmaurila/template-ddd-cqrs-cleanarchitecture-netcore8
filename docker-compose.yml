@@ -4,15 +4,10 @@
 # Add-Migration Inicial -Context ExempleAppDbContext 
 # Update-Database -Context ExempleAppDbContext
 
-# Add-Migration Inicial -Context PersonAppDbContext 
-# Add-Migration InicialPerson -Context PersonAppDbContext 
-# Update-Database -Context PersonAppDbContext
-
-# Add-Migration Inicial -Context CustomerAppDbContext 
-# Update-Database -Context CustomerAppDbContext
+# Add-Migration Inicial -Context TemplateAppDbContext 
+# Update-Database -Context TemplateAppDbContext
 
 # Criando API nova
-# dotnet new webapi -n AuthSystem
 # dotnet new webapi -n API.Person
 
 version: '3.4'

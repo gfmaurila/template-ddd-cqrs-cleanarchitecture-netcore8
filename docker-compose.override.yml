@@ -3,22 +3,16 @@ version: '3.4'
 services:
   api.template:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8082
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=TemplateDb;User=sa;Password=@Poc2Minimal@Api;Encrypt=true;TrustServerCertificate=true
-      - ConnectionStrings__CacheConnection=Redis,password=Poc2Minimal@Api
-      - MongoDB__ConnectionString=mongodb://localhost:27017
-      - MongoDB__Database=API_Template
-      - Kafka__BootstrapServers=kafka1:9092
-      - Kafka__DefaultTopic=integration-events
-    ports:
+    ports: 
       - "5002:80"
       - "8082:443"  # Mapeamento HTTPS corrigido
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro  
     networks:
       - app-backend
 

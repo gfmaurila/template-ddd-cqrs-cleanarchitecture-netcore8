@@ -18,13 +18,12 @@ public class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, UserDto>
     }
     public async Task<Result<UserDto, IDomainError>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
-        var basket = await _repo.GetByIdAsync(request.Id);
-        if (basket is null)
+        var entity = await _repo.GetByIdAsync(request.Id);
+        if (entity is null)
             return Result.Failure<UserDto, IDomainError>(DomainError.NotFound("User not found."));
 
         // Map the User domain object to a UserDto
-        var basketDto = _mapper.Map<UserDto>(basket);
-        return Result.Success<UserDto, IDomainError>(basketDto);
+        return Result.Success<UserDto, IDomainError>(_mapper.Map<UserDto>(entity));
 
     }
 }
