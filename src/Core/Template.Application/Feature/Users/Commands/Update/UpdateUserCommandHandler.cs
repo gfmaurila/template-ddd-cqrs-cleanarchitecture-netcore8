@@ -1,4 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
+using Microsoft.VisualBasic;
 using Template.Application.Abstractions;
 using Template.Application.Abstractions.Interface;
 using Template.Application.Repositories;
@@ -25,10 +26,13 @@ public class UpdateUserCommandHandler : CommandHandlerBase<UpdateUserCommand, Gu
     protected override async Task<Result<Guid, IDomainError>> ExecuteAsync(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         // Step 1: Core operation
-        if (await _repo.GetByIdAsync(request.Id) == null)
+        _update = await _repo.GetByIdAsync(request.Id);
+
+        if (_update == null)
             return Result.Failure<Guid, IDomainError>(DomainError.Conflict($"No record found for ID: {request.Id}"));
 
-        _update = User.Update(request.firstName, request.lastName, request.gender, request.email, request.phone);
+        _update = User.Update(request.Id, request.firstName, request.lastName, request.gender, request.email, request.phone);
+
 
         await _repo.UpdateAsync(_update);
 

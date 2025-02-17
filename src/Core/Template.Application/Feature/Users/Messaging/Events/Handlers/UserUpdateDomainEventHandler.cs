@@ -5,18 +5,18 @@ using Template.Domain.Users.Events;
 
 namespace Template.Application.Feature.Users.Messaging.Events.Handlers;
 
-public class UserDeleteDomainEventHandler : IDomainEventHandler<UserDeletedEvent>
+public class UserUpdateDomainEventHandler : IDomainEventHandler<UserUpdateEvent>
 {
     private readonly IIntegrationEventPublisher _integrationEventPublisher;
 
-    public UserDeleteDomainEventHandler(IIntegrationEventPublisher integrationEventPublisher)
+    public UserUpdateDomainEventHandler(IIntegrationEventPublisher integrationEventPublisher)
     {
         _integrationEventPublisher = integrationEventPublisher;
     }
 
-    public async Task Handle(UserDeletedEvent domainEvent, CancellationToken cancellationToken)
+    public async Task Handle(UserUpdateEvent domainEvent, CancellationToken cancellationToken)
     {
-        var integrationEvent = new UserDeleteIntegrationEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
+        var integrationEvent = new UserUpdateIntegrationEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
         await _integrationEventPublisher.PublishAsync(integrationEvent);
     }
 }

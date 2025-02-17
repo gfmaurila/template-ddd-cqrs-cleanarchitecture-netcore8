@@ -14,5 +14,6 @@ public class TemplateAppDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TemplateAppDbContext).Assembly);
     }
 }

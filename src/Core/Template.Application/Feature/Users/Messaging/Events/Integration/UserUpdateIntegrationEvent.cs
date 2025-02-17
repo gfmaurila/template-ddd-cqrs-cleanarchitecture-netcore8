@@ -5,9 +5,9 @@ using Template.Domain.Users;
 
 namespace Template.Application.Feature.Users.Messaging.Events.Integration;
 
-public sealed class UserDeleteIntegrationEvent : IntegrationEvent
+public sealed class UserUpdateIntegrationEvent : IntegrationEvent
 {
-    public UserDeleteIntegrationEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
+    public UserUpdateIntegrationEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
         : base(id)
     {
         Id = id;
@@ -18,7 +18,7 @@ public sealed class UserDeleteIntegrationEvent : IntegrationEvent
         Phone = phone;
         AggregateId = Guid.NewGuid();
     }
-    public UserDeleteIntegrationEvent() { }
+    public UserUpdateIntegrationEvent() { }
 
     /// <summary>
     /// Gets the first name of the Exemple entity.

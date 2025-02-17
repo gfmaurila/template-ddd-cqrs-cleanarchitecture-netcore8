@@ -10,9 +10,9 @@ public class UserMappingProfile : Profile
     public UserMappingProfile()
     {
         // Domain -> Entity mappings
-        CreateMap<User, UserEntity>();
+        CreateMap<User, UserEntity>().ReverseMap(); ;
 
         // Entity -> Domain mappings
-        CreateMap<UserEntity, User>();
+        CreateMap<UserEntity, User>().ReverseMap(); ;
     }
 }

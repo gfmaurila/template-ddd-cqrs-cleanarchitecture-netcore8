@@ -1,0 +1,40 @@
+GET BY ID
+curl -X 'GET' \
+  'https://localhost:44387/api/User/83c019bf-5c61-465f-a24b-f80e201e8e64' \
+  -H 'accept: */*'
+
+
+POST
+curl -X 'POST' \
+  'https://localhost:44387/api/User' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "firstName": "string",
+  "lastName": "string",
+  "gender": "1",
+  "email": "string3@teste.com",
+  "phone": "string"
+}'
+
+
+PUT
+curl -X 'PUT' \
+  'https://localhost:44387/api/User' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": "41a27ee7-49a0-49aa-a5e5-899adf16d5a0",
+    "firstName": "string",
+    "lastName": "string",
+    "gender": "Male",
+    "email": "string3@teste.com",
+    "phone": "string"
+}'
+
+
+DELETE
+
+
+
+

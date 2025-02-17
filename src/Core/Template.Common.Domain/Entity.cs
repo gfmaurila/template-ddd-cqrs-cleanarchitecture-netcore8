@@ -2,7 +2,7 @@
 
 public abstract class Entity<TModel> : IAuditableEntity
 {
-    public Id<TModel> Id { get; }
+    public Id<TModel> Id { get; private set; }
     public DateTimeOffset CreatedAtUtc { get; }
     public DateTimeOffset LastModifiedAtUtc { get; }
 
@@ -14,6 +14,14 @@ public abstract class Entity<TModel> : IAuditableEntity
     }
 
     protected Entity() : this(Id<TModel>.New()) { }
+
+    public void SetId(Id<TModel> id)
+    {
+        if (id == null || id.Value == Guid.Empty)
+            throw new ArgumentException("Id inválido.");
+
+        Id = id;
+    }
     public override bool Equals(object? obj)
     {
         if (obj is Entity<TModel> entity)

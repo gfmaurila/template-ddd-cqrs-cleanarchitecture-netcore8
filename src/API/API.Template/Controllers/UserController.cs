@@ -2,6 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Template.Application.Feature.Users.Commands.Create;
+using Template.Application.Feature.Users.Commands.Delete;
+using Template.Application.Feature.Users.Commands.Update;
 using Template.Application.Feature.Users.Queries.GetById;
 
 namespace API.Template.Controllers;
@@ -25,6 +27,24 @@ public class UserController(ISender sender, ILogger<UserController> logger) : Ba
         var result = await _sender.Send(command);
         return result.IsSuccess
             ? CreatedAtAction(nameof(GetById), new { id = result.Value }, result.ToSerializableObject())
+            : HandleError(result.Error);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Put([FromBody] UpdateUserCommand command)
+    {
+        var result = await _sender.Send(command);
+        return result.IsSuccess
+            ? CreatedAtAction(nameof(GetById), new { id = result.Value }, result.ToSerializableObject())
+            : HandleError(result.Error);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var result = await _sender.Send(new DeleteUserCommand(id));
+        return result.IsSuccess
+            ? Ok(result.ToSerializableObject())
             : HandleError(result.Error);
     }
 }

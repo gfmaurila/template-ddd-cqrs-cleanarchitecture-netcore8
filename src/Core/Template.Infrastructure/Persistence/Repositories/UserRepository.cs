@@ -20,11 +20,28 @@ public class UserRepository : IUserRepository
     public async Task AddAsync(User entity, CancellationToken cancellationToken)
         => await _context.AddAsync(_mapper.Map<UserEntity>(entity));
 
-    public Task UpdateAsync(User entity)
-        => Task.FromResult(_context.Update(entity));
+    public async Task UpdateAsync(User entity)
+    {
+        var existingEntity = await _context.User.FindAsync(entity.Id.Value);
+        if (existingEntity == null)
+            throw new InvalidOperationException($"User with ID {entity.Id.Value} not found.");
 
-    public Task DeleteAsync(Guid id)
-        => Task.FromResult(_context.Remove(id));
+        // Atualizar manualmente as propriedades
+        _mapper.Map(entity, existingEntity);
+
+        // Anexar a entidade existente ao contexto
+        _context.Attach(existingEntity);
+        _context.Entry(existingEntity).State = EntityState.Modified;
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        var entity = await _context.User.FindAsync(id);
+        if (entity != null)
+        {
+            _context.User.Remove(entity);
+        }
+    }
     #endregion
 
     #region Queries

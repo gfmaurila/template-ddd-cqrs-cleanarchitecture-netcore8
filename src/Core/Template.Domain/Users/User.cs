@@ -47,9 +47,10 @@ public sealed class User : AggregateRoot<User>
         return obj;
     }
 
-    public static User Update(string firstName, string lastName, EGender gender, string email, string phone)
+    public static User Update(Guid id, string firstName, string lastName, EGender gender, string email, string phone)
     {
         var obj = new User(firstName, lastName, gender, email, phone);
+        obj.SetId(id);
         obj.RaiseDomainEvent(new UserUpdateEvent(obj.Id, obj.FirstName, obj.LastName, obj.Gender, obj.Email, obj.Phone));
         return obj;
     }
