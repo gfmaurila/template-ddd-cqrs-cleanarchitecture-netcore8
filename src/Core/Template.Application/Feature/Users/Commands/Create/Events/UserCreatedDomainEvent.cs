@@ -3,11 +3,11 @@ using Template.Common.Domain;
 using Template.Common.Domain.Enumerado;
 using Template.Domain.Users;
 
-namespace Template.Application.Feature.Users.Messaging.Events.Integration;
+namespace Template.Application.Feature.Users.Commands.Create.Events;
 
-public sealed class UserCreatedIntegrationEvent : IntegrationEvent
+public sealed class UserCreatedDomainEvent : IntegrationEvent
 {
-    public UserCreatedIntegrationEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
+    public UserCreatedDomainEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
         : base(id)
     {
         Id = id;
@@ -18,7 +18,7 @@ public sealed class UserCreatedIntegrationEvent : IntegrationEvent
         Phone = phone;
         AggregateId = Guid.NewGuid();
     }
-    public UserCreatedIntegrationEvent() { }
+    public UserCreatedDomainEvent() { }
 
     /// <summary>
     /// Gets the first name of the Exemple entity.

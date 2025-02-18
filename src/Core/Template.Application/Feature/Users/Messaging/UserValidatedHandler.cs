@@ -1,11 +1,11 @@
 ﻿using Template.Application.Abstractions.Messaging.Interface;
-using Template.Application.Feature.Users.Messaging.Events.Integration;
+using Template.Application.Feature.Users.Commands.Create.Events;
 
 namespace Template.Application.Feature.Users.Messaging;
 
-public class UserValidatedHandler : IIntegrationEventHandler<UserCreatedIntegrationEvent>
+public class UserValidatedHandler : IIntegrationEventHandler<UserCreatedDomainEvent>
 {
-    public Task HandleAsync(UserCreatedIntegrationEvent @event, CancellationToken cancellationToken)
+    public Task HandleAsync(UserCreatedDomainEvent @event, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

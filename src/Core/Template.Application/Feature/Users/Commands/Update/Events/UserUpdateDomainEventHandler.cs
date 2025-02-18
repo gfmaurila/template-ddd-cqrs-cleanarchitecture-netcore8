@@ -1,9 +1,8 @@
 ﻿using Template.Application.Abstractions.Messaging.Interface;
-using Template.Application.Feature.Users.Messaging.Events.Integration;
 using Template.Common.Domain.Events;
 using Template.Domain.Users.Events;
 
-namespace Template.Application.Feature.Users.Messaging.Events.Handlers;
+namespace Template.Application.Feature.Users.Commands.Update.Events;
 
 public class UserUpdateDomainEventHandler : IDomainEventHandler<UserUpdateEvent>
 {
@@ -16,7 +15,7 @@ public class UserUpdateDomainEventHandler : IDomainEventHandler<UserUpdateEvent>
 
     public async Task Handle(UserUpdateEvent domainEvent, CancellationToken cancellationToken)
     {
-        var integrationEvent = new UserUpdateIntegrationEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
+        var integrationEvent = new UserUpdateDomainEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
         await _integrationEventPublisher.PublishAsync(integrationEvent);
     }
 }

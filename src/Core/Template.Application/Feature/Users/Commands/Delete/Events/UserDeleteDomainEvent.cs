@@ -3,11 +3,11 @@ using Template.Common.Domain;
 using Template.Common.Domain.Enumerado;
 using Template.Domain.Users;
 
-namespace Template.Application.Feature.Users.Messaging.Events.Integration;
+namespace Template.Application.Feature.Users.Commands.Delete.Events;
 
-public sealed class UserUpdateIntegrationEvent : IntegrationEvent
+public sealed class UserDeleteDomainEvent : IntegrationEvent
 {
-    public UserUpdateIntegrationEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
+    public UserDeleteDomainEvent(Id<User> id, string firstName, string lastName, EGender gender, string email, string phone)
         : base(id)
     {
         Id = id;
@@ -18,7 +18,7 @@ public sealed class UserUpdateIntegrationEvent : IntegrationEvent
         Phone = phone;
         AggregateId = Guid.NewGuid();
     }
-    public UserUpdateIntegrationEvent() { }
+    public UserDeleteDomainEvent() { }
 
     /// <summary>
     /// Gets the first name of the Exemple entity.

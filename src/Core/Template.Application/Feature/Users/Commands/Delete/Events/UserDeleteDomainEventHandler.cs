@@ -1,9 +1,8 @@
 ﻿using Template.Application.Abstractions.Messaging.Interface;
-using Template.Application.Feature.Users.Messaging.Events.Integration;
 using Template.Common.Domain.Events;
 using Template.Domain.Users.Events;
 
-namespace Template.Application.Feature.Users.Messaging.Events.Handlers;
+namespace Template.Application.Feature.Users.Commands.Delete.Events;
 
 public class UserDeleteDomainEventHandler : IDomainEventHandler<UserDeletedEvent>
 {
@@ -16,7 +15,7 @@ public class UserDeleteDomainEventHandler : IDomainEventHandler<UserDeletedEvent
 
     public async Task Handle(UserDeletedEvent domainEvent, CancellationToken cancellationToken)
     {
-        var integrationEvent = new UserDeleteIntegrationEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
+        var integrationEvent = new UserDeleteDomainEvent(domainEvent.Id, domainEvent.FirstName, domainEvent.LastName, domainEvent.Gender, domainEvent.Email, domainEvent.Phone);
         await _integrationEventPublisher.PublishAsync(integrationEvent);
     }
 }
