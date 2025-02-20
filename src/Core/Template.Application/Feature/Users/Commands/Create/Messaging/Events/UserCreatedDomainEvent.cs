@@ -3,7 +3,7 @@ using Template.Common.Domain;
 using Template.Common.Domain.Enumerado;
 using Template.Domain.Users;
 
-namespace Template.Application.Feature.Users.Commands.Create.Events;
+namespace Template.Application.Feature.Users.Commands.Create.Messaging.Events;
 
 public sealed class UserCreatedDomainEvent : IntegrationEvent
 {

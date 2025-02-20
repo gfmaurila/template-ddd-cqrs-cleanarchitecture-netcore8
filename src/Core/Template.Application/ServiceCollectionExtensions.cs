@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
             .WithScopedLifetime());
 
         services.AddValidatorsFromAssembly(typeof(ServiceCollectionExtensions).Assembly);
-        services.AddAutoMapper(typeof(BasketMappingProfile));
+        services.AddAutoMapper(typeof(UserMappingProfile));
         return services;
     }
 }

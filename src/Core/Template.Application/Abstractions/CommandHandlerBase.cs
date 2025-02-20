@@ -29,9 +29,7 @@ public abstract class CommandHandlerBase<TCommand, TResponse> : ICommandHandler<
         // Step 1: Execute core operation
         var operationResult = await ExecuteAsync(request, cancellationToken);
         if (!operationResult.IsSuccess)
-        {
-            return operationResult; // Return failure result
-        }
+            return operationResult;
 
         // Step 2: Commit Unit of Work
         await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -39,15 +37,10 @@ public abstract class CommandHandlerBase<TCommand, TResponse> : ICommandHandler<
         // Step 3: Dispatch Domain Events
         var aggregateRoot = GetAggregateRoot(operationResult);
         if (aggregateRoot != null)
-        {
-            var domainEvents = aggregateRoot.PopDomainEvents();
-            await DispatchDomainEventsAsync(domainEvents, cancellationToken);
-        }
+            await DispatchDomainEventsAsync(aggregateRoot.PopDomainEvents(), cancellationToken);
 
         // Step 4: Return Result
         return operationResult;
-
-
     }
 
     /// <summary>

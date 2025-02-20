@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Feature\Users\Messaging\Events\" />
     <Folder Include="Feature\Users\Queries\GetPagination\" />
     <Folder Include="Feature\Users\Queries\Get\" />
   </ItemGroup>

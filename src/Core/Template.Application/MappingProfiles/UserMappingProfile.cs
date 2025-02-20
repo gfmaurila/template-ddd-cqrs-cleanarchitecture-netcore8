@@ -4,9 +4,9 @@ using Template.Domain.Users;
 
 namespace Template.Application.MappingProfiles;
 
-public class BasketMappingProfile : Profile
+public class UserMappingProfile : Profile
 {
-    public BasketMappingProfile()
+    public UserMappingProfile()
     {
         // Map User to UserDto
         CreateMap<User, UserDto>();

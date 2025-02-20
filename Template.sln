@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{880C6BE4-BA2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A0363547-C562-4C7C-9DAD-516E835E41F8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{6BF2238F-8275-4F07-85D2-BC040AD728E0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Core", "03 - Core", "{6BF2238F-8275-4F07-85D2-BC040AD728E0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Common.Domain", "src\Core\Template.Common.Domain\Template.Common.Domain.csproj", "{4DD72BD8-5FB4-4B68-865D-B6F37D4606EA}"
 EndProject
@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Domain", "src\Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Application", "src\Core\Template.Application\Template.Application.csproj", "{FB6401C3-0309-46ED-A9EC-E75644FC6544}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{58D73CB2-2F34-4C70-B1FD-3E0F13C72BFE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - API", "01 - API", "{58D73CB2-2F34-4C70-B1FD-3E0F13C72BFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Template", "src\API\API.Template\API.Template.csproj", "{88F34C76-C52B-460E-8911-CC9754459010}"
 EndProject
@@ -37,6 +37,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Common.Domain.Tests", "tests\Template.Common.Domain.Tests\Template.Common.Domain.Tests.csproj", "{4C7C8669-575E-4DCF-B19B-49284FF88008}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{38191EDD-D672-4151-AC0A-DA91327BEC40}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servicos", "02 - Servicos", "{F9012D37-2374-4654-B693-F96F76B93AC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Template.Kafka.Worker", "src\Servios\Template.Kafka.Worker\Template.Kafka.Worker.csproj", "{233E91D2-3A21-4613-8177-85029E73D9A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,6 +84,10 @@ Global
 		{38191EDD-D672-4151-AC0A-DA91327BEC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38191EDD-D672-4151-AC0A-DA91327BEC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38191EDD-D672-4151-AC0A-DA91327BEC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233E91D2-3A21-4613-8177-85029E73D9A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233E91D2-3A21-4613-8177-85029E73D9A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233E91D2-3A21-4613-8177-85029E73D9A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233E91D2-3A21-4613-8177-85029E73D9A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +105,7 @@ Global
 		{59077183-FCB3-4C8B-9593-A283E70594B9} = {A0363547-C562-4C7C-9DAD-516E835E41F8}
 		{54F3513C-DF13-4BF8-9B8D-D3513133872F} = {ED2020CC-E4C3-4CD8-83B8-67583A9245AA}
 		{4C7C8669-575E-4DCF-B19B-49284FF88008} = {59077183-FCB3-4C8B-9593-A283E70594B9}
+		{F9012D37-2374-4654-B693-F96F76B93AC3} = {880C6BE4-BA2F-4AF7-8CD3-1F1849BF97EF}
+		{233E91D2-3A21-4613-8177-85029E73D9A9} = {F9012D37-2374-4654-B693-F96F76B93AC3}
 	EndGlobalSection
 EndGlobal

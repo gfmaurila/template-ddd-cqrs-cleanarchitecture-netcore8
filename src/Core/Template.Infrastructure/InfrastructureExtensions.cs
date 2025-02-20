@@ -44,6 +44,7 @@ public static class InfrastructureExtensions
         var kafkaConfig = configuration.GetSection("Kafka");
         var bootstrapServers = kafkaConfig["BootstrapServers"];
         var defaultTopic = kafkaConfig["DefaultTopic"];
+        var groupId = kafkaConfig["GroupId"];
 
         // Register KafkaIntegrationEventPublisher
         services.AddSingleton<IIntegrationEventPublisher>(sp =>
@@ -51,9 +52,48 @@ public static class InfrastructureExtensions
             return new KafkaIntegrationEventPublisher(bootstrapServers!, defaultTopic!);
         });
 
+
+        //// Registrar os dicionários para o consumidor
+        //services.AddSingleton<Dictionary<Type, object>>(sp => new Dictionary<Type, object>());
+        //services.AddSingleton<Dictionary<string, Type>>(sp =>
+        //{
+        //    var mappings = new Dictionary<string, Type>
+        //    {
+        //        { "integration-events", typeof(UserCreatedDomainEvent) }, // Ajuste conforme o tipo do evento
+        //        //{ "user-events", typeof(UserCreatedDomainEvent) }
+        //    };
+        //    return mappings;
+        //});
+
+        //// Registrar o consumidor Kafka como Scoped
+        //services.AddScoped<IConsumer<string, string>>(sp =>
+        //{
+        //    var config = new ConsumerConfig
+        //    {
+        //        BootstrapServers = bootstrapServers,
+        //        GroupId = groupId,
+        //        AutoOffsetReset = AutoOffsetReset.Earliest,
+        //        EnableAutoCommit = true
+        //    };
+        //    return new ConsumerBuilder<string, string>(config).Build();
+        //});
+
+        //// Registrar o IntegrationEventConsumer
+        //services.AddScoped<IIntegrationEventConsumer, IntegrationEventConsumer>();
+
+        // Registrar o consumidor específico para eventos de usuário
+        //services.AddScoped<UserEventSubscribe>();
+
         // Register DbContext with a connection string
         services.AddDbContext<TemplateAppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("SqlConnection")));
+
+
+        // Inicializar o consumidor Kafka após o registro dos serviços
+        //var serviceProvider = services.BuildServiceProvider();
+        //var userEventConsumer = serviceProvider.GetRequiredService<UserEventSubscribe>();
+        //var cts = new CancellationTokenSource();
+        //Task.Run(() => userEventConsumer.StartConsumingAsync(cts.Token));
 
         return services;
     }

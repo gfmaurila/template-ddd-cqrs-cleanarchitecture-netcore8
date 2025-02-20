@@ -1,5 +1,5 @@
 ﻿using Template.Application.Abstractions.Messaging.Interface;
-using Template.Application.Feature.Users.Commands.Create.Events;
+using Template.Application.Feature.Users.Commands.Create.Messaging.Events;
 
 namespace Template.Application.Feature.Users.Messaging;
 
