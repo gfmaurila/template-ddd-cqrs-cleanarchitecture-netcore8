@@ -1,103 +1,107 @@
-# 📘 Documentação Geral - Template
+# 📘 Documentação do Projeto Template
 
 ## 📖 Visão Geral
-... **...** ....
+Este projeto é um **template** para desenvolvimento de funcionalidades em **.NET Core**, permitindo a expansão e reutilização do código para diversas finalidades. Ele inclui uma estrutura modular com separação entre API, serviços e camadas de domínio, visando uma arquitetura escalável e organizada.
 
 ## 🏗 Arquitetura e Tecnologias Utilizadas
-O projeto adota uma arquitetura baseada em **Microservices** e **CQRS (Command Query Responsibility Segregation)**, utilizando:
+O projeto adota uma arquitetura modular baseada em **camadas** e utiliza as seguintes tecnologias:
 
-- **ASP.NET Core 8.0** → Framework para desenvolvimento das APIs
+- **ASP.NET Core 8.0** → Framework principal para desenvolvimento da API
 - **Entity Framework Core** → ORM para interação com banco de dados relacional
-- **YARP (Reverse Proxy)** → Gerenciamento de roteamento de APIs
 - **SQL Server** → Banco de dados relacional
-- **MongoDB** → Banco de dados NoSQL
-- **Redis** → Cache distribuído para otimização de performance
-- **RabbitMQ / Kafka** → Mensageria para comunicação assíncrona
-- **Docker & Docker Compose** → Contêinerização das aplicações
-- **Swagger/OpenAPI** → Documentação interativa da API
-- **JWT (JSON Web Token)** → Autenticação e autorização
+- **Kafka** → Plataforma de mensageria para comunicação assíncrona
+- **Docker & Docker Compose** → Contênirização das aplicações
+- **xUnit** → Framework de testes unitários
 
 ## 📁 Estrutura do Projeto
 
 ```bash
-📂 poc.micro-saas.netcore8
-├── 📂 Documento
-│   ├── 📄 README.md
+📂 Template
 ├── 📂 src
-│   ├── ...
+│   ├── 📂 01 - API
+│   │   ├── 📂 API.Template
+│   ├── 📂 02 - Serviços
+│   ├── 📂 03 - Core
+│   │   ├── 📂 Template.Application
+│   │   ├── 📂 Template.Common.Core
+│   │   ├── 📂 Template.Common.Domain
+│   │   ├── 📂 Template.Domain
+│   │   ├── 📂 Template.Infrastructure
+├── 📂 Tests
+│   ├── 📂 IntegrationTests
+│   │   ├── 📂 API.Template.Tests
+│   ├── 📂 UnitTests
+│   │   ├── 📂 Template.Common.Domain.Tests
 ├── 📂 docker-compose
 │   ├── 📄 .dockerignore
 │   ├── 📄 docker-compose.yml
-│   ├── 📄 docker-compose.override.yml
 │   ├── 📄 launchSettings.json
 ```
 
-## 📌 Descrição das APIs
+## 🚀 Como Executar o Projeto
 
-### 1️⃣ **API....**
-- ... **interface única** ....
-
-## 🚀 Execução do Projeto
-O projeto pode ser inicializado utilizando **Docker Compose**:
+1. Certifique-se de ter **Docker** e **Docker Compose** instalados.
+2. Clone o repositório e acesse a pasta raiz do projeto.
+3. Execute os seguintes comandos para iniciar os containers:
 
 ```bash
 docker-compose down
 docker-compose up -d --build
-Update-Database -Context MainContext
 ```
 
-### 📡 Serviços Configurados
-- **SQL Server** (1433)
-- **Redis** (6379)
-- **MongoDB** (27017)
-- **RabbitMQ** (5672)
-- **Kafka** (9092)
-- **Kafka UI** (8080)
-
-## 🔍 Testes e Qualidade
-### ✅ **Testes Unitários**
-Os testes unitários são implementados utilizando **xUnit**:
+4. Aplique as migrations no banco de dados:
 
 ```bash
-dotnet test
+dotnet ef database update --context AppDbContext
 ```
 
-### 🔄 **Testes de Integração**
-Os testes de integração utilizam **TestContainers** e **Postman/Newman** para validação:
+5. Execute a API:
+
+```bash
+dotnet run --project src/01 - API/API.Template
+```
+
+## 📡 Configuração dos Serviços
+
+### **Banco de Dados (SQL Server)**
+- **Host:** `localhost`
+- **Porta:** `1433`
+- **Usuário:** `sa`
+- **Senha:** `YourStrong!Pass`
+
+### **Kafka**
+- **Host:** `localhost`
+- **Porta:** `9092`
+- **UI:** [http://localhost:8080](http://localhost:8080) (Kafka UI)
+
+## ✅ Testes
+Os testes estão divididos em **unitários** e **de integração**:
+
+### **Testes Unitários**
+
+```bash
+dotnet test --filter Category=UnitTests
+```
+
+### **Testes de Integração**
 
 ```bash
 dotnet test --filter Category=IntegrationTests
 ```
 
-## 📚 **Banco de Dados**
-### **SQL Server**
-- **Host:** `localhost`
-- **Usuário:** `sa`
-- **Senha:** `Password!123`
-
-### **MongoDB**
-- **Host:** `localhost`
-- **Database:** `clinics_db`
-
-## 📦 **Mensageria e Streaming**
-### **RabbitMQ**
-- **Acesso:** [http://localhost:15672](http://localhost:15672)
-- **Usuário:** guest / **Senha:** guest
-
-### **Kafka**
-- **Acesso:** [http://localhost:9100](http://localhost:9100)
-
-## 📋 **Comandos Importantes**
+## 📋 Comandos Importantes
 
 ```bash
-Add-Migration InitialCreate -Context AppDbContext
-Update-Database -Context AppDbContext
+# Criar uma migration
+dotnet ef migrations add InitialCreate --context AppDbContext
+
+# Aplicar migrations
+dotnet ef database update --context AppDbContext
 ```
 
 ## 🧑‍💻 **Autores**
 
 - **Guilherme Figueiras Maurila**
-
 
 ## 📫 Como me encontrar
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCjy19AugQHIhyE0Nv558jcQ)
