@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Confluent.Kafka;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using System.Reflection;
+using Template.Application.Abstractions.Messaging.Consumer;
 using Template.Application.Abstractions.Messaging.Interface;
+using Template.Application.Feature.Users.Commands.Create.Messaging.Consumer;
 using Template.Application.Repositories;
 using Template.Infrastructure.Messaging;
 using Template.Infrastructure.Persistence;
@@ -52,48 +56,39 @@ public static class InfrastructureExtensions
             return new KafkaIntegrationEventPublisher(bootstrapServers!, defaultTopic!);
         });
 
+        // Configuração do consumidor Kafka
+        var consumerConfig = new ConsumerConfig
+        {
+            BootstrapServers = bootstrapServers,
+            GroupId = groupId,
+            AutoOffsetReset = AutoOffsetReset.Earliest, // Para consumir mensagens antigas
+            EnableAutoCommit = true,
+            SessionTimeoutMs = 6000,  // Reduz o timeout para evitar quedas
+            HeartbeatIntervalMs = 2000, // Garante que o consumidor sinalize atividade
+            AllowAutoCreateTopics = true // Permite criação automática do tópico
+        };
 
-        //// Registrar os dicionários para o consumidor
-        //services.AddSingleton<Dictionary<Type, object>>(sp => new Dictionary<Type, object>());
-        //services.AddSingleton<Dictionary<string, Type>>(sp =>
-        //{
-        //    var mappings = new Dictionary<string, Type>
-        //    {
-        //        { "integration-events", typeof(UserCreatedDomainEvent) }, // Ajuste conforme o tipo do evento
-        //        //{ "user-events", typeof(UserCreatedDomainEvent) }
-        //    };
-        //    return mappings;
-        //});
+        // Subscribe - Kafka
+        // Configuração do Kafka
+        services.Configure<KafkaConsumerConfig>(configuration.GetSection("Kafka"));
 
-        //// Registrar o consumidor Kafka como Scoped
-        //services.AddScoped<IConsumer<string, string>>(sp =>
-        //{
-        //    var config = new ConsumerConfig
-        //    {
-        //        BootstrapServers = bootstrapServers,
-        //        GroupId = groupId,
-        //        AutoOffsetReset = AutoOffsetReset.Earliest,
-        //        EnableAutoCommit = true
-        //    };
-        //    return new ConsumerBuilder<string, string>(config).Build();
-        //});
+        // Registrar a configuração como um singleton para ser usada diretamente
+        services.AddSingleton(sp => sp.GetRequiredService<IOptions<KafkaConsumerConfig>>().Value);
 
-        //// Registrar o IntegrationEventConsumer
-        //services.AddScoped<IIntegrationEventConsumer, IntegrationEventConsumer>();
+        // Registrar o KafkaConsumer
+        services.AddSingleton<IKafkaConsumer, KafkaConsumer>();
 
-        // Registrar o consumidor específico para eventos de usuário
-        //services.AddScoped<UserEventSubscribe>();
+        // Registrar o processador de mensagens como scoped
+        services.AddScoped<IUserCreatedMessageProcessor, UserCreatedMessageProcessor>();
+
+        // Registrar o NotificationKafkaSubscribe como hosted service (singleton)
+        services.AddHostedService<UserCreatedConsumerEventHandler>();
+
+
 
         // Register DbContext with a connection string
         services.AddDbContext<TemplateAppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("SqlConnection")));
-
-
-        // Inicializar o consumidor Kafka após o registro dos serviços
-        //var serviceProvider = services.BuildServiceProvider();
-        //var userEventConsumer = serviceProvider.GetRequiredService<UserEventSubscribe>();
-        //var cts = new CancellationTokenSource();
-        //Task.Run(() => userEventConsumer.StartConsumingAsync(cts.Token));
 
         return services;
     }

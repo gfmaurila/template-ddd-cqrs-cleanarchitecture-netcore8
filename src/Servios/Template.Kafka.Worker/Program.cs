@@ -1,6 +1,5 @@
 ﻿using Confluent.Kafka;
 using Template.Application.Feature.Users.Commands.Create.Messaging.Events;
-using Template.Application.Feature.Users.Commands.Create.Messaging.Consumer;
 
 namespace Template.Kafka.Worker;
 public class Program

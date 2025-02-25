@@ -19,16 +19,22 @@ public class IntegrationEventConsumer : IIntegrationEventConsumer
         _consumer = consumer ?? throw new ArgumentNullException(nameof(consumer));
         _handlers = handlers ?? throw new ArgumentNullException(nameof(handlers));
         _eventTypeMappings = eventTypeMappings ?? throw new ArgumentNullException(nameof(eventTypeMappings));
+        Console.WriteLine($"[Kafka] - Inicializando consumidor. Handlers registrados: {_handlers.Count}");
+        Console.WriteLine($"[Kafka] - Inicializando consumidor. Eventos registrados: {_eventTypeMappings.Count}");
     }
 
     public async Task ConsumeAsync(CancellationToken cancellationToken)
     {
+        Console.WriteLine("Kafka Consumer iniciado...");
         try
         {
             while (!cancellationToken.IsCancellationRequested)
             {
+                Console.WriteLine("Aguardando mensagens do Kafka...");
                 // Consume message
                 var consumeResult = _consumer.Consume(cancellationToken);
+
+                Console.WriteLine($"Mensagem recebida no tópico {consumeResult.Topic}: {consumeResult.Message.Value}");
 
                 // Get the event type from the topic
                 if (_eventTypeMappings.TryGetValue(consumeResult.Topic, out var eventType))
@@ -39,12 +45,14 @@ public class IntegrationEventConsumer : IIntegrationEventConsumer
                     if (integrationEvent != null)
                     {
                         // Dispatch the event to the appropriate handler
+                        Console.WriteLine($"Evento desserializado: {eventType.Name}");
                         await DispatchEventAsync(integrationEvent, cancellationToken);
                     }
                 }
                 else
                 {
                     Console.WriteLine($"No event type mapping found for topic: {consumeResult.Topic}");
+                    Console.WriteLine($"Nenhum mapeamento encontrado para o tópico: {consumeResult.Topic}");
                 }
             }
         }
